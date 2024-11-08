@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     # Select the DynamoDB table named 'studentData'
     table = dynamodb.Table('studentData')
 
-    # Scan the table to retrieve all item
+    # Scan the table to retrieve all items
     response = table.scan()
     data = response['Items']
 
