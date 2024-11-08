@@ -12,7 +12,7 @@ phases:
       - if [ -d lib ]; then cd lib && zip -r9 ../deployment_package.zip . && cd ..; else echo "No dependencies to zip."; fi
       - zip -g deployment_package.zip getStudents.py  # Add main Lambda code
   post_build:
-  commands:
+    commands:
       - echo "Uploading deployment package to S3..."
       - aws s3 cp deployment_package.zip s3://my23princebucket/deployment_package.zip
       - if [ $? -eq 0 ]; then echo "Upload to S3 successful."; else echo "Upload to S3 failed." && exit 1; fi
@@ -20,4 +20,3 @@ phases:
       - aws lambda update-function-code --function-name Fully-Automated-Serverless-API- --s3-bucket my23princebucket --s3-key deployment_package.zip
       - if [ $? -eq 0 ]; then echo "Lambda function update successful."; else echo "Lambda function update failed." && exit 1; fi
       - echo "Deployment completed successfully!"
-
